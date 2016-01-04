@@ -10,10 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -28,17 +29,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @NotNull
+    @NotEmpty
     @Size(min=3, max=50)
     @Column(name = "USER_NAME", nullable = false)
     private String name;
     
-    @NotNull
+    @NotEmpty
     @Size(min=3, max=100)
     @Column(name = "USER_PASSWORD", nullable = false)
     private String password;
     
-    @NotNull
     @Size(min=3, max=50)
     @Column(name = "USER_EMAIL", nullable = false)
     private String email;
@@ -47,15 +47,17 @@ public class User {
     @Column(name = "USER_ADDRESS")
     private String address;
     
-    @Size(min=9, max=9)
+    //@Size(min=9, max=9)
     @Column(name = "USER_TELEPHONE", nullable = false)
     private long telephone;
     
-    @Size(min=9, max=9)
+    //@Size(min=9, max=9)
     @Column(name = "USER_NIF", nullable = false)
     private long nif;
     
-    private int profileId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_profile_id", nullable = false)
+    private UserProfile userProfile;
 
     public int getId() {
         return id;
@@ -113,13 +115,6 @@ public class User {
         this.nif = nif;
     }
 
-    public int getProfileId() {
-        return profileId;
-    }
-
-    public void setProfileId(int profileId) {
-        this.profileId = profileId;
-    }
     
     	@Override
 	public boolean equals(Object obj) {

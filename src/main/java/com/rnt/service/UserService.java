@@ -27,5 +27,7 @@ public interface UserService {
 	User findUserByNif(long nif);
 
         List<User> findUserByName(String name);
+        
+        void deleteUserById(int id);
     
 }

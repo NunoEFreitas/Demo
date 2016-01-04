@@ -51,6 +51,12 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao{
 	criteria.add(Restrictions.eq("user_name", name));
         return (List<User>) criteria.list();
     }
+
+    public void deleteUserById(int id) {
+        Query query = getSession().createSQLQuery("delete from User where user_id = :id");
+	query.setString("id", Integer.toString(id));
+        query.executeUpdate();
+    }
     
     
     

@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rnt.model.Employee;
+import com.rnt.model.User;
+import com.rnt.model.UserProfile;
 import com.rnt.service.EmployeeService;
+import com.rnt.service.UserProfileService;
+import com.rnt.service.UserService;
 
 @Controller
 @RequestMapping("/")
@@ -27,16 +31,56 @@ public class AppController {
 	
 	@Autowired
 	MessageSource messageSource;
+        
+        @Autowired
+        UserService userService;
+        
+        @Autowired
+        UserProfileService userProfileService;
 
 	/*
 	 * This method will list all existing employees.
 	 */
-	@RequestMapping(value = { "/", "/list" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/list"}, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
 
 		List<Employee> employees = service.findAllEmployees();
 		model.addAttribute("employees", employees);
 		return "allemployees";
+	}
+        
+        
+        @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+	public String index(ModelMap model) {
+		return "index";
+	}
+        
+        @RequestMapping(value = {"/newUser"}, method = RequestMethod.GET)
+	public String newUser(ModelMap model) {
+                User user = new User();
+                model.addAttribute("user", user);
+                model.addAttribute("edit", false);
+		return "registeruser";
+	}
+        
+        @RequestMapping(value = {"/newProfile"}, method = RequestMethod.GET)
+	public String newProfile(ModelMap model) {
+                UserProfile userProfile = new UserProfile();
+                model.addAttribute("userProfile", userProfile);
+                model.addAttribute("edit", false);
+		return "addprofile";
+	}
+        
+        @RequestMapping(value = {"/newProfile"}, method = RequestMethod.POST)
+	public String saveProfile(UserProfile userProfile,ModelMap model) {
+               userProfileService.saveUserProfile(userProfile);
+                return "addprofile";
+	}
+        
+        @RequestMapping(value = {"/newUser"}, method = RequestMethod.POST)
+	public String saveUser(User user,ModelMap model) {
+                userService.saveUser(user);
+		return "registeruser";
 	}
 
 	/*

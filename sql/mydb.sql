@@ -54,7 +54,7 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `mydb`.`material` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`material` (
-  `mateiral_id` BIGINT(20) NOT NULL,
+  `mateiral_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `designation` VARCHAR(45) NOT NULL,
   `buy_price` FLOAT NULL DEFAULT NULL,
   `sell_price` FLOAT NULL DEFAULT NULL,
@@ -69,10 +69,9 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `mydb`.`userprofile` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`userprofile` (
-  `profile_id` BIGINT(20) NOT NULL,
+  `profile_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `profile_designation` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`profile_id`),
-  UNIQUE INDEX `type` (`profile_designation` ASC))
+  PRIMARY KEY (`profile_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -83,7 +82,7 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `mydb`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `user_id` BIGINT(20) NOT NULL,
+  `user_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `user_password` VARCHAR(100) NOT NULL,
   `user_name` VARCHAR(50) NOT NULL,
   `user_email` VARCHAR(50) NOT NULL,
@@ -108,7 +107,7 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `mydb`.`repairstatus` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`repairstatus` (
-  `status_id` BIGINT(20) NOT NULL,
+  `status_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `status_designation` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`status_id`))
 ENGINE = InnoDB

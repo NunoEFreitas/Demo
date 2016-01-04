@@ -19,6 +19,8 @@ public interface UserDao {
 	void saveUser(User user);
 	
 	void deleteUserByNif(long nif);
+        
+        void deleteUserById(int id);
 	
 	List<User> findAllUsers();
 
