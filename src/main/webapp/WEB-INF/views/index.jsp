@@ -19,10 +19,12 @@
         <br>
         <a href="list">List Employees</a>
         <br>
-        <a href="newUser">Add User</a>
+        <a href="newuser">Add User</a>
         <br>
-        <a href="listUsers">List Users</a>
+        <a href="newprofile">Add Profile</a>
         <br>
-        <a href="newProfile">Add Profile</a>
+        <a href="listprofiles">List Profiles</a>
+        <br>
+        <a href="listusers">List Users</a>
     </body>
 </html>

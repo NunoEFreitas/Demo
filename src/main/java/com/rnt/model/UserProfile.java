@@ -5,13 +5,19 @@
  */
 package com.rnt.model;
 
+import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -22,19 +28,22 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(name="USERPROFILE")
+@Table(name="userprofile")
 public class UserProfile {
     
+
+    private int id;
+
+    private String designation;
+    /*
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="USERPROFILE_PROFILE_ID")
+    private User user;
+    */
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
-    @NotEmpty
-    @Size(min=3,max=20)
-    @Column(name = "PROFILE_DESIGNATION", nullable = false)
-    private String designation;
-    
-
+    @Column(name = "PROFILE_ID", nullable = false)
     public int getId() {
         return id;
     }
@@ -43,6 +52,9 @@ public class UserProfile {
         this.id = id;
     }
 
+    @NotEmpty
+    @Size(min=3,max=20)
+    @Column(name = "PROFILE_DESIGNATION", nullable = false)
     public String getDesignation() {
         return designation;
     }
@@ -52,8 +64,14 @@ public class UserProfile {
     }
 
     
-    
-        	@Override
+
+/*
+    public void addUser(User user) {
+        user.setUserProfile(this);
+        users.add(user);
+    }
+  */  
+       @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

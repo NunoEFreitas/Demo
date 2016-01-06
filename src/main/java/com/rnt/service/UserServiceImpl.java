@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService{
             entity.setNif(user.getNif());
             entity.setPassword(user.getPassword());
             entity.setTelephone(user.getTelephone());
+            entity.setUserProfile(user.getUserProfile());
 	}
     }
 

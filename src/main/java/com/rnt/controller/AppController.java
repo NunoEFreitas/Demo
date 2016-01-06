@@ -21,6 +21,7 @@ import com.rnt.model.UserProfile;
 import com.rnt.service.EmployeeService;
 import com.rnt.service.UserProfileService;
 import com.rnt.service.UserService;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 @RequestMapping("/")
@@ -38,9 +39,6 @@ public class AppController {
         @Autowired
         UserProfileService userProfileService;
 
-	/*
-	 * This method will list all existing employees.
-	 */
 	@RequestMapping(value = {"/list"}, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
 
@@ -49,43 +47,56 @@ public class AppController {
 		return "allemployees";
 	}
         
+        @RequestMapping(value = {"/listprofiles"}, method = RequestMethod.GET)
+	public String listProfiles(ModelMap model) {
+                List<UserProfile> profiles = userProfileService.listUserProfiles();
+		model.addAttribute("profiles", profiles);
+		return "listprofiles";
+	}
+        
+        @RequestMapping(value = {"/listusers"}, method = RequestMethod.GET)
+	public String listUsers(ModelMap model) {
+                List<User> users = userService.findAllUsers();
+		model.addAttribute("users", users);
+		return "listusers";
+	}
+        
         
         @RequestMapping(value = {"/"}, method = RequestMethod.GET)
 	public String index(ModelMap model) {
 		return "index";
 	}
         
-        @RequestMapping(value = {"/newUser"}, method = RequestMethod.GET)
+        @RequestMapping(value = {"/newuser"}, method = RequestMethod.GET)
 	public String newUser(ModelMap model) {
                 User user = new User();
+                List<UserProfile> uPlist = userProfileService.listUserProfiles();
+                model.addAttribute("uplist",uPlist);
                 model.addAttribute("user", user);
                 model.addAttribute("edit", false);
-		return "registeruser";
+		return "newuser";
 	}
         
-        @RequestMapping(value = {"/newProfile"}, method = RequestMethod.GET)
+        @RequestMapping(value = {"/newuser"}, method = RequestMethod.POST)
+	public String saveUser(User user,ModelMap model) {
+                userService.saveUser(user);
+		return "index";
+	}
+        
+        @RequestMapping(value = {"/newprofile"}, method = RequestMethod.GET)
 	public String newProfile(ModelMap model) {
                 UserProfile userProfile = new UserProfile();
                 model.addAttribute("userProfile", userProfile);
                 model.addAttribute("edit", false);
-		return "addprofile";
+		return "newprofile";
 	}
         
-        @RequestMapping(value = {"/newProfile"}, method = RequestMethod.POST)
+        @RequestMapping(value = {"/newprofile"}, method = RequestMethod.POST)
 	public String saveProfile(UserProfile userProfile,ModelMap model) {
                userProfileService.saveUserProfile(userProfile);
-                return "addprofile";
+               return "index";
 	}
         
-        @RequestMapping(value = {"/newUser"}, method = RequestMethod.POST)
-	public String saveUser(User user,ModelMap model) {
-                userService.saveUser(user);
-		return "registeruser";
-	}
-
-	/*
-	 * This method will provide the medium to add a new employee.
-	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)
 	public String newEmployee(ModelMap model) {
 		Employee employee = new Employee();
@@ -94,10 +105,6 @@ public class AppController {
 		return "registration";
 	}
 
-	/*
-	 * This method will be called on form submission, handling POST request for
-	 * saving employee in database. It also validates the user input
-	 */
 	@RequestMapping(value = { "/new" }, method = RequestMethod.POST)
 	public String saveEmployee(@Valid Employee employee, BindingResult result,
 			ModelMap model) {
