@@ -16,12 +16,14 @@
 	<h2>List of Profiles</h2>	
 	<table>
 		<tr>
-			<td>ID</td><td>Description</td>
+			<td>ID</td><td>Description</td><td>Edit</td><td>Delete</td>
 		</tr>
 		<c:forEach items="${profiles}" var="profile">
 			<tr>
 			<td>${profile.id}</td>
 			<td>${profile.designation}</td>
+                        <td><a href="<c:url value='/edit-${profile.id}-userProfile' />">Edit</a></td>
+			<td><a href="<c:url value='/delete-${profile.id}-userProfile' />">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

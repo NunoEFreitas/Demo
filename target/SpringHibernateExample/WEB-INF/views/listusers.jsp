@@ -16,7 +16,8 @@
         	<h2>List of Users</h2>	
 	<table>
 		<tr>
-			<td>ID</td><td>Name</td><td>Password</td><td>Email</td><td>Telephone</td><td>NIF</td><td>Address</td><td>Profile</td>
+                    <td>ID</td><td>Name</td><td>Password</td><td>Email</td><td>Telephone</td>
+                    <td>NIF</td><td>Address</td><td>Profile</td><td>Edit</td><td>Delete</td>
 		</tr>
 		<c:forEach items="${users}" var="user">
 			<tr>
@@ -28,6 +29,8 @@
                         <td>${user.nif}</td>
                         <td>${user.address}</td>
                         <td>${user.userProfile.getDesignation()}</td>
+                        <td><a href="<c:url value='/edit-${user.id}-user' />">Edit</a></td>
+			<td><a href="<c:url value='/delete-${user.id}-user' />">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

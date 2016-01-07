@@ -17,6 +17,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -36,15 +38,9 @@ public class User {
     private String password;
     private String email;
     private String address;
-    private long telephone;
-    private long nif;
+    private int telephone;
+    private int nif;
     private UserProfile userProfile;
-    
-       /*
-    @ManyToOne
-    @JoinColumn(name = "USERPROFILE_PROFILE_ID", nullable = false)
-    private UserProfile userProfile;
-   */
     
     
     @Id
@@ -53,7 +49,6 @@ public class User {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -64,7 +59,6 @@ public class User {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -75,7 +69,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -85,7 +78,6 @@ public class User {
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -95,36 +87,31 @@ public class User {
     public String getAddress() {
         return address;
     }
-
     public void setAddress(String address) {
         this.address = address;
     }
     
-    //@Size(min=9, max=9)
     @Column(name = "USER_TELEPHONE", nullable = false)
-    public long getTelephone() {
+    public int getTelephone() {
         return telephone;
     }
-
-    public void setTelephone(long telephone) {
+    public void setTelephone(int telephone) {
         this.telephone = telephone;
     }
     
-    //@Size(min=9, max=9)
     @Column(name = "USER_NIF", nullable = false)
-    public long getNif() {
+    public int getNif() {
         return nif;
     }
-
-    public void setNif(long nif) {
+    public void setNif(int nif) {
         this.nif = nif;
     } 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="userprofile_profile_id")
     public UserProfile getUserProfile() {
         return userProfile;
     }
-
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }

@@ -6,10 +6,12 @@
 package com.rnt.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +35,6 @@ public class UserProfile {
     
 
     private int id;
-
     private String designation;
     /*
     @OneToOne(cascade=CascadeType.ALL)
@@ -47,7 +48,6 @@ public class UserProfile {
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -58,19 +58,11 @@ public class UserProfile {
     public String getDesignation() {
         return designation;
     }
-
     public void setDesignation(String designation) {
         this.designation = designation;
     }
 
-    
-
-/*
-    public void addUser(User user) {
-        user.setUserProfile(this);
-        users.add(user);
-    }
-  */  
+   
        @Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,6 +77,10 @@ public class UserProfile {
 
 		return true;
 	}
+
+
+
+
 
 	@Override
 	public String toString() {

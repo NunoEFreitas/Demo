@@ -13,7 +13,7 @@
         <title>Repair Management</title>
     </head>
     <body>
-        <img src="<c:url value="resources/Capturar.png" />" />
+        ${success}
         <h1>welcome</h1>
         <a href="new">Add Employee</a>
         <br>

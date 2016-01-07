@@ -78,9 +78,44 @@ public class AppController {
 	}
         
         @RequestMapping(value = {"/newuser"}, method = RequestMethod.POST)
-	public String saveUser(User user,ModelMap model) {
+	public String saveUser(@Valid User user,BindingResult result,ModelMap model) {
+                if (result.hasErrors()) {
+                        List<UserProfile> uPlist = userProfileService.listUserProfiles();
+                        model.addAttribute("uplist",uPlist);
+			return "newuser";
+		}
                 userService.saveUser(user);
+		model.addAttribute("success", "User " + user.getName() + " registered successfully");
 		return "index";
+	}
+        
+        @RequestMapping(value = { "/edit-{id}-user" }, method = RequestMethod.GET)
+	public String editUser(@PathVariable int id, ModelMap model) {
+                User user = userService.findById(id);
+                List<UserProfile> uPlist = userProfileService.listUserProfiles();
+                model.addAttribute("uplist",uPlist);
+		model.addAttribute("user", user);
+		model.addAttribute("edit", true);
+		return "newuser";
+	}
+        
+        // edit works, but user always have to select a profile, issue to be solved
+        @RequestMapping(value = { "/edit-{id}-user" }, method = RequestMethod.POST)
+	public String updateUser(@Valid User user,BindingResult result,ModelMap model, @PathVariable int id) {
+                if (result.hasErrors()) {
+                        List<UserProfile> uPlist = userProfileService.listUserProfiles();
+                        model.addAttribute("uplist",uPlist);
+			return "newuser";
+		}
+                userService.updateUser(user);
+                model.addAttribute("success", "User " + user.getName() + " updated successfully");
+		return "index";
+	}
+        
+        @RequestMapping(value = { "/delete-{id}-user" }, method = RequestMethod.GET)
+	public String deleteUser(@PathVariable int id) {
+                userService.deleteUserById(id);
+		return "redirect:/listusers";
 	}
         
         @RequestMapping(value = {"/newprofile"}, method = RequestMethod.GET)
@@ -92,9 +127,38 @@ public class AppController {
 	}
         
         @RequestMapping(value = {"/newprofile"}, method = RequestMethod.POST)
-	public String saveProfile(UserProfile userProfile,ModelMap model) {
+	public String saveProfile(@Valid UserProfile userProfile,BindingResult result,ModelMap model) {
+            if (result.hasErrors()) {
+                return "newprofile";
+            }
                userProfileService.saveUserProfile(userProfile);
+               model.addAttribute("success", "User Profile " + userProfile.getDesignation() + " registered successfully");
                return "index";
+	}
+        
+        @RequestMapping(value = { "/edit-{id}-userProfile" }, method = RequestMethod.GET)
+	public String editUserProfile(@PathVariable int id, ModelMap model) {
+                UserProfile userProfile = userProfileService.findById(id);
+                model.addAttribute("userProfile",userProfile);
+		model.addAttribute("edit", true);
+		return "newprofile";
+	}
+        
+        // edit works, but user always have to select a profile, issue to be solved
+        @RequestMapping(value = { "/edit-{id}-userProfile" }, method = RequestMethod.POST)
+	public String updateUserProfile(@Valid UserProfile userProfile,BindingResult result,ModelMap model, @PathVariable int id) {
+                if (result.hasErrors()) {
+			return "newprofile";
+		}
+                userProfileService.updateUserProfile(userProfile);
+                model.addAttribute("success", "User " + userProfile.getDesignation() + " updated successfully");
+		return "index";
+	}
+        
+        @RequestMapping(value = { "/delete-{id}-userProfile" }, method = RequestMethod.GET)
+	public String deleteUserProfile(@PathVariable int id) {
+                userProfileService.deleteUserProfileById(id);
+		return "redirect:/listprofiles";
 	}
         
 	@RequestMapping(value = { "/new" }, method = RequestMethod.GET)

@@ -23,46 +23,66 @@
 			<tr>
 				<td><label for="name">Name: </label> </td>
 				<td><form:input path="name" id="name"/></td>
+                                <td><form:errors path="name" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
 				<td><label for="password">Password: </label> </td>
 				<td><form:input path="password" id="password"/></td>
+                                <td><form:errors path="password" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
 				<td><label for="email">Email: </label> </td>
 				<td><form:input path="email" id="email"/></td>
+                                <td><form:errors path="email" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
 				<td><label for="address">Address: </label> </td>
 				<td><form:input path="address" id="address"/></td>
+                                <td><form:errors path="address" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
 				<td><label for="telephone">Telephone: </label> </td>
 				<td><form:input path="telephone" id="telephone"/></td>
+                                <td><form:errors path="telephone" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
 				<td><label for="nif">Nif: </label> </td>
 				<td><form:input path="nif" id="nif"/></td>
+                                <td><form:errors path="nif" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
                     <td><label for="userProfile">Profile: </label> </td>
                     <td>
-                    <form:select path="userProfile" id="userProfile">
-                            <option value="">..</option>
+                    <form:select path="userProfile.id" id="userProfile.id">
                             <c:forEach items="${uplist}" var="upl">
-                                <option value="${upl}">
-                                    ${upl.designation}
-                                </option>
-                            </c:forEach>
-                    </form:select>
+                                 <c:choose>
+                                    <c:when test="${upl.id eq userProfile.id}">
+                                    <option value="${upl.id}" selected="true">${upl.designation}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <option value="${upl.id}">${upl.designation}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                                    </c:forEach>
+                            </form:select>
                     </td>
 		    </tr>
+                    
+                    
+                    <c:choose>
+                        <c:when test="${upl.id eq userProfile.id}">
+                            <option value="${upl.id}" selected="true">${upl.designation}</option>
+                        </c:when>
+                    <c:otherwise>
+                        <option value="${upl.id}">${upl.designation}</option>
+                    </c:otherwise>
+                    </c:choose>
 		
 			<tr>
 				<td colspan="3">
