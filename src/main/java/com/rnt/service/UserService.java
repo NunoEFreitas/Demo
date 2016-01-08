@@ -20,14 +20,16 @@ public interface UserService {
 	
 	void updateUser(User user);
 	
-	void deleteUserByNif(long nif);
+	void deleteUserByNif(int nif);
 
 	List<User> findAllUsers(); 
 	
-	User findUserByNif(long nif);
+	User findUserByNif(int nif);
 
         List<User> findUserByName(String name);
         
         void deleteUserById(int id);
+        
+        User findUserByEmail(String email);
     
 }

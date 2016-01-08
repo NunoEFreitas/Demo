@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +14,7 @@
         <title>Repair Management</title>
     </head>
     <body>
-        ${success}
+        ${message}
         <h1>welcome</h1>
         <a href="new">Add Employee</a>
         <br>
@@ -26,5 +27,23 @@
         <a href="listprofiles">List Profiles</a>
         <br>
         <a href="listusers">List Users</a>
+        <br>
+        
+        <label>Login form</label>
+        <form:form method="POST" name="loginForm">
+            <table>
+			<tr>
+				<td><label for="email">Email </label> </td>
+                                <td><input name="email" type="email" /></td>
+		    </tr>
+                    <tr>
+				<td><label for="password">Password </label> </td>
+                                <td><input name="password" type="password"/></td>
+		    </tr>
+                    <tr>
+                        <td><input type="submit" value="Login"/></td>
+        </tr>
+            </table>
+        </form:form>
     </body>
 </html>

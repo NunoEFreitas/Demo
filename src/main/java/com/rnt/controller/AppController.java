@@ -22,6 +22,7 @@ import com.rnt.service.EmployeeService;
 import com.rnt.service.UserProfileService;
 import com.rnt.service.UserService;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -67,6 +68,22 @@ public class AppController {
 		return "index";
 	}
         
+        @RequestMapping(value = {"/"}, method = RequestMethod.POST)
+	public String indexLogin(ModelMap model,@RequestParam String email, @RequestParam String password) {
+            if(userService.findUserByEmail(email)!=null){
+                User user = userService.findUserByEmail(email);
+                if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
+                    model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                    return "main"; 
+                } else {
+                    model.addAttribute("message", "User " + user.getName() + " login incorrect");
+                }
+            } else {
+                model.addAttribute("message", "User not registered");
+            }
+		return "index";   
+	}
+        
         @RequestMapping(value = {"/newuser"}, method = RequestMethod.GET)
 	public String newUser(ModelMap model) {
                 User user = new User();
@@ -78,14 +95,20 @@ public class AppController {
 	}
         
         @RequestMapping(value = {"/newuser"}, method = RequestMethod.POST)
-	public String saveUser(@Valid User user,BindingResult result,ModelMap model) {
+	public String saveUser(@Valid User user,BindingResult result,ModelMap model) {            
                 if (result.hasErrors()) {
                         List<UserProfile> uPlist = userProfileService.listUserProfiles();
                         model.addAttribute("uplist",uPlist);
 			return "newuser";
 		}
+                if(userService.findUserByNif(user.getNif())!=null || userService.findUserByEmail(user.getEmail())!=null){
+                    List<UserProfile> uPlist = userProfileService.listUserProfiles();
+                    model.addAttribute("uplist",uPlist);
+                    model.addAttribute("error", "User email ou nif already registered");
+                    return "newuser";
+                }
                 userService.saveUser(user);
-		model.addAttribute("success", "User " + user.getName() + " registered successfully");
+		model.addAttribute("message", "User " + user.getName() + " registered successfully");
 		return "index";
 	}
         
@@ -108,7 +131,7 @@ public class AppController {
 			return "newuser";
 		}
                 userService.updateUser(user);
-                model.addAttribute("success", "User " + user.getName() + " updated successfully");
+                model.addAttribute("message", "User " + user.getName() + " updated successfully");
 		return "index";
 	}
         
@@ -132,7 +155,7 @@ public class AppController {
                 return "newprofile";
             }
                userProfileService.saveUserProfile(userProfile);
-               model.addAttribute("success", "User Profile " + userProfile.getDesignation() + " registered successfully");
+               model.addAttribute("message", "User Profile " + userProfile.getDesignation() + " registered successfully");
                return "index";
 	}
         
@@ -151,7 +174,7 @@ public class AppController {
 			return "newprofile";
 		}
                 userProfileService.updateUserProfile(userProfile);
-                model.addAttribute("success", "User " + userProfile.getDesignation() + " updated successfully");
+                model.addAttribute("message", "User " + userProfile.getDesignation() + " updated successfully");
 		return "index";
 	}
         

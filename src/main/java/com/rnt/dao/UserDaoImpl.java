@@ -10,7 +10,9 @@ import com.rnt.model.User;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository("userDao")
 public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao{
+    
 
     public User findById(int id) {
         return getByKey(id);
@@ -29,9 +32,9 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao{
         persist(user);
     }
 
-    public void deleteUserByNif(long nif) {
+    public void deleteUserByNif(int nif) {
         Query query = getSession().createSQLQuery("delete from User where user_nif = :nif");
-	query.setString("nif", Long.toString(nif));
+	query.setString("nif", Integer.toString(nif));
         query.executeUpdate();
     }
 
@@ -41,22 +44,34 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao{
         return (List<User>) criteria.list();
     }
 
-    public User findUserByNif(long nif) {
+    public User findUserByNif(int nif) {
         Criteria criteria = createEntityCriteria();
-	criteria.add(Restrictions.eq("user_nif", Long.toString(nif)));
+	criteria.add(Restrictions.eq("nif", nif));
 	return (User) criteria.uniqueResult();
     }
 
     public List<User> fingUserByName(String name) {
-        Criteria criteria = createEntityCriteria();
-	criteria.add(Restrictions.eq("user_name", name));
-        return (List<User>) criteria.list();
+          Criteria criteria = getSession().createCriteria(User.class);
+          criteria.add(Restrictions.eq("name", name));
+          return (List<User>) criteria.list();
+          /*
+          Query query = getSession().createSQLQuery("select from User where user_name = :name");
+          query.setString("name", name);
+          return query.list();
+          */
     }
 
     public void deleteUserById(int id) {
         Query query = getSession().createSQLQuery("delete from User where user_id = :id");
 	query.setString("id", Integer.toString(id));
         query.executeUpdate();
+        
+    }
+
+    public User findUserByEmail(String email) {
+        Criteria criteria = createEntityCriteria();
+	criteria.add(Restrictions.eq("email",email));
+	return (User) criteria.uniqueResult();
     }
     
     

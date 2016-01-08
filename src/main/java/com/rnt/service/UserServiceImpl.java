@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
 	}
     }
 
-    public void deleteUserByNif(long nif) {
+    public void deleteUserByNif(int nif) {
         dao.deleteUserByNif(nif);
     }
 
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService{
         return dao.findAllUsers();
     }
 
-    public User findUserByNif(long nif) {
+    public User findUserByNif(int nif) {
         return dao.findUserByNif(nif);
     }
 
@@ -67,6 +67,10 @@ public class UserServiceImpl implements UserService{
 
     public void deleteUserById(int id) {
         dao.deleteUserById(id);
+    }
+
+    public User findUserByEmail(String email) {
+        return dao.findUserByEmail(email);
     }
     
     

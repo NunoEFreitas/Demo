@@ -18,14 +18,16 @@ public interface UserDao {
 
 	void saveUser(User user);
 	
-	void deleteUserByNif(long nif);
+	void deleteUserByNif(int nif);
         
         void deleteUserById(int id);
 	
 	List<User> findAllUsers();
 
-	User findUserByNif(long nif);
+	User findUserByNif(int nif);
         
         List<User> fingUserByName(String name);
+        
+        User findUserByEmail(String email);
     
 }

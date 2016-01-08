@@ -98,6 +98,7 @@
 			</tr>
 		</table>
 	</form:form>
+                ${error}
 	<br/>
 	<br/>
     </body>

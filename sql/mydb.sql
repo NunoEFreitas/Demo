@@ -89,11 +89,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `user_telephone` BIGINT(9) NULL DEFAULT NULL,
   `user_nif` BIGINT(9) NULL DEFAULT NULL,
   `user_address` VARCHAR(200) NULL DEFAULT NULL,
-  `user_profile_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`user_id`, `user_profile_id`),
-  INDEX `fk_User_UserProfile1_idx` (`user_profile_id` ASC),
-  CONSTRAINT `fk_User_UserProfile1`
-    FOREIGN KEY (`user_profile_id`)
+  `userprofile_profile_id` BIGINT(20) NOT NULL,
+  PRIMARY KEY (`user_id`, `userprofile_profile_id`),
+  INDEX `fk_user_userprofile1_idx` (`userprofile_profile_id` ASC),
+  UNIQUE INDEX `user_email_UNIQUE` (`user_email` ASC),
+  CONSTRAINT `fk_user_userprofile1`
+    FOREIGN KEY (`userprofile_profile_id`)
     REFERENCES `mydb`.`userprofile` (`profile_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

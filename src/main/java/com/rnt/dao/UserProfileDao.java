@@ -22,4 +22,5 @@ public interface UserProfileDao {
     
     List<UserProfile> listUserProfiles();
     
+    
 }

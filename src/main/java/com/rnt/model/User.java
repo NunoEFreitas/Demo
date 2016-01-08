@@ -107,7 +107,7 @@ public class User {
         this.nif = nif;
     } 
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name="userprofile_profile_id")
     public UserProfile getUserProfile() {
         return userProfile;
