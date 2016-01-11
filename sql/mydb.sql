@@ -24,9 +24,11 @@ CREATE TABLE IF NOT EXISTS `mydb`.`client` (
   `client_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `telephone` INT(9) NOT NULL,
-  `email` VARCHAR(45) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL,
   `address` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`client_id`))
+  PRIMARY KEY (`client_id`),
+  UNIQUE INDEX `telephone_UNIQUE` (`telephone` ASC),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -127,9 +129,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`repair` (
   `user_user_id` BIGINT(20) NOT NULL,
   `client_client_id` BIGINT(20) NOT NULL,
   `repair_status_status_id` BIGINT(20) NOT NULL,
-  `observation` VARCHAR(200) NULL DEFAULT NULL,
+  `observation` VARCHAR(500) NULL DEFAULT NULL,
   `hours_spend` INT(3) NULL DEFAULT NULL,
   `price` FLOAT NULL DEFAULT NULL,
+  `serial_number` VARCHAR(25) NULL,
   PRIMARY KEY (`repair_id`, `user_user_id`, `client_client_id`, `repair_status_status_id`),
   INDEX `fk_repair_app_user1_idx` (`user_user_id` ASC),
   INDEX `fk_repair_client1_idx` (`client_client_id` ASC),
