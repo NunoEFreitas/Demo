@@ -59,16 +59,18 @@ public class AppController {
             if(userService.findUserByEmail(email)!=null){
                 User user = userService.findUserByEmail(email);
                 if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
-                    switch (user.getUserProfile().getDesignation()){
-                                case "admin":
-                                model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
-                                return "mainadmin"; 
-                                case "reparador":
-                                model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
-                                return "mainrepairer";  
-                                case "logista":
-                                model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
-                                return "mainstore";
+                    if(user.getUserProfile().getDesignation().equals("admin")){
+                        model.addAttribute("role", "admin");
+                        model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                        return "mainadmin";
+                    } else if(user.getUserProfile().getDesignation().equals("reparador")){
+                        model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                        model.addAttribute("role", "reparador");
+                        return "mainrepairer";
+                    } else {
+                        model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                        model.addAttribute("role", "logista");
+                        return "mainstore";
                     }
                 } else {
                     model.addAttribute("message", "User " + user.getName() + " login incorrect");

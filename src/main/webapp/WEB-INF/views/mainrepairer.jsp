@@ -14,6 +14,7 @@
     <body>
         <h1>Main Repairer</h1>
         ${message}
+        <br>
         <a href="newrepair">Add Repair</a>
         <br>
         <a href="newclient">Add Client</a>
