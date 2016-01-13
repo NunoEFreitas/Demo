@@ -59,8 +59,17 @@ public class AppController {
             if(userService.findUserByEmail(email)!=null){
                 User user = userService.findUserByEmail(email);
                 if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
-                    model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
-                    return "main"; 
+                    switch (user.getUserProfile().getDesignation()){
+                                case "admin":
+                                model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                                return "mainadmin"; 
+                                case "reparador":
+                                model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                                return "mainrepairer";  
+                                case "logista":
+                                model.addAttribute("message", "User " + user.getName() + " login correct " + "has " + user.getUserProfile().getDesignation());
+                                return "mainstore";
+                    }
                 } else {
                     model.addAttribute("message", "User " + user.getName() + " login incorrect");
                 }

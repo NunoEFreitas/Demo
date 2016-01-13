@@ -16,18 +16,6 @@
     <body>
         ${message}
         <h1>welcome</h1>
-        <a href="new">Add Employee</a>
-        <br>
-        <a href="list">List Employees</a>
-        <br>
-        <a href="newuser">Add User</a>
-        <br>
-        <a href="newprofile">Add Profile</a>
-        <br>
-        <a href="listprofiles">List Profiles</a>
-        <br>
-        <a href="listusers">List Users</a>
-        <br>
         
         <label>Login form</label>
         <form:form method="POST" name="loginForm">
