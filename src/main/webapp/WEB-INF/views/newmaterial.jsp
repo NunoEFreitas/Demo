@@ -1,6 +1,6 @@
 <%-- 
-    Document   : newclient
-    Created on : 11/jan/2016, 11:08:42
+    Document   : newmaterial
+    Created on : 14/jan/2016, 13:50:56
     Author     : Nuno
 --%>
 
@@ -17,31 +17,25 @@
     <body>
         <h2>Registration Form</h2>
  
-	<form:form method="POST" modelAttribute="client">
+	<form:form method="POST" modelAttribute="material">
 		<form:input type="hidden" path="id" id="id"/>
 		<table>
 			<tr>
-				<td><label for="name">Name: </label> </td>
-				<td><form:input path="name" id="name"/></td>
-                                <td><form:errors path="name" cssClass="error"/></td>
+				<td><label for="designation">Designation: </label> </td>
+				<td><form:input path="designation" id="designation"/></td>
+                                <td><form:errors path="designation" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
-				<td><label for="email">Email: </label> </td>
-				<td><form:input path="email" id="email"/></td>
-                                <td><form:errors path="email" cssClass="error"/></td>
+				<td><label for="buyPrice">Buy Price: </label> </td>
+				<td><form:input path="buyPrice" id="buyPrice"/></td>
+                                <td><form:errors path="buyPrice" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
-				<td><label for="address">Address: </label> </td>
-				<td><form:input path="address" id="address"/></td>
-                                <td><form:errors path="address" cssClass="error"/></td>
-
-		    </tr>
-                    <tr>
-				<td><label for="telephone">Telephone: </label> </td>
-				<td><form:input path="telephone" id="telephone"/></td>
-                                <td><form:errors path="telephone" cssClass="error"/></td>
+				<td><label for="sellPrice">Sell Price: </label> </td>
+				<td><form:input path="sellPrice" id="sellPrice"/></td>
+                                <td><form:errors path="sellPrice" cssClass="error"/></td>
 
 		    </tr>
 		

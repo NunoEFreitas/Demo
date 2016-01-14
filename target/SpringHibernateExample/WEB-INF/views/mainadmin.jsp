@@ -17,11 +17,15 @@
         <br>
         <a href="newuser">Add User</a>
         <br>
+        <a href="newmaterial">Add Material</a>
+        <br>
         <a href="newprofile">Add Profile</a>
         <br>
         <a href="listprofiles">List Profiles</a>
         <br>
         <a href="listusers">List Users</a>
+        <br>
+        <a href="listmaterials">List Materials</a>
         <br>
     </body>
 </html>

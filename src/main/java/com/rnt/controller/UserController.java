@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/")
-public class UserContoller {
+public class UserController {
     
-    @Autowired
+        @Autowired
         UserService userService;
         
         @Autowired
@@ -72,7 +72,7 @@ public class UserContoller {
                 }
                 userService.saveUser(user);
 		model.addAttribute("message", "User " + user.getName() + " registered successfully");
-		return "index";
+		return "mainadmin";
 	}
         
         @RequestMapping(value = { "/edit-{id}-user" }, method = RequestMethod.GET)
@@ -95,7 +95,7 @@ public class UserContoller {
 		}
                 userService.updateUser(user);
                 model.addAttribute("message", "User " + user.getName() + " updated successfully");
-		return "index";
+		return "mainadmin";
 	}
         
         @RequestMapping(value = { "/delete-{id}-user" }, method = RequestMethod.GET)
@@ -119,7 +119,7 @@ public class UserContoller {
             }
                userProfileService.saveUserProfile(userProfile);
                model.addAttribute("message", "User Profile " + userProfile.getDesignation() + " registered successfully");
-               return "index";
+               return "mainadmin";
 	}
         
         @RequestMapping(value = { "/edit-{id}-userProfile" }, method = RequestMethod.GET)
@@ -138,7 +138,7 @@ public class UserContoller {
 		}
                 userProfileService.updateUserProfile(userProfile);
                 model.addAttribute("message", "User " + userProfile.getDesignation() + " updated successfully");
-		return "index";
+		return "mainadmin";
 	}
         
         @RequestMapping(value = { "/delete-{id}-userProfile" }, method = RequestMethod.GET)

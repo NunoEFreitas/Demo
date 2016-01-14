@@ -20,6 +20,7 @@ import com.rnt.model.User;
 import com.rnt.service.EmployeeService;
 import com.rnt.service.UserProfileService;
 import com.rnt.service.UserService;
+import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -37,6 +38,9 @@ public class AppController {
         
         @Autowired
         UserProfileService userProfileService;
+        
+        @Autowired
+        HttpSession session;
 
 	@RequestMapping(value = {"/list"}, method = RequestMethod.GET)
 	public String listEmployees(ModelMap model) {
@@ -50,14 +54,15 @@ public class AppController {
         
         
         @RequestMapping(value = {"/"}, method = RequestMethod.GET)
-	public String index(ModelMap model) {
+	public String index(HttpSession session,ModelMap model) {
 		return "index";
 	}
         
         @RequestMapping(value = {"/"}, method = RequestMethod.POST)
-	public String indexLogin(ModelMap model,@RequestParam String email, @RequestParam String password) {
+	public String indexLogin(HttpSession session,ModelMap model,@RequestParam String email, @RequestParam String password) {
             if(userService.findUserByEmail(email)!=null){
                 User user = userService.findUserByEmail(email);
+                session.setAttribute("role", user.getUserProfile().getDesignation());
                 if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
                     if(user.getUserProfile().getDesignation().equals("admin")){
                         model.addAttribute("role", "admin");
