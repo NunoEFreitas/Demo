@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Nuno
  */
 @Entity
-@Table(name="material")
+@Table(name="MATERIAL")
 public class Material {
     
     private int id;
