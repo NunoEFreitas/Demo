@@ -5,10 +5,21 @@
  */
 package com.rnt.dao;
 
+import com.rnt.model.RepairStatus;
+import java.util.List;
+
 /**
  *
  * @author Nuno
  */
 public interface RepairStatusDao {
+    
+    RepairStatus findById(int id);
+    
+    void saveRepairStatus(RepairStatus repairStatus);
+    
+    void deleteRepairStatusById(int id);
+    
+    List<RepairStatus> listRepairStatus();
     
 }
