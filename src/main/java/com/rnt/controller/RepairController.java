@@ -6,10 +6,15 @@
 package com.rnt.controller;
 
 import com.rnt.model.RepairStatus;
+import com.rnt.model.UserProfile;
 import com.rnt.service.RepairStatusService;
+import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,49 +33,49 @@ public class RepairController {
 	public String listStatus(ModelMap model) {
                 List<RepairStatus> profiles = repairService.listRepairStatus();
 		model.addAttribute("profiles", profiles);
-		return "listprofiles";
+		return "listrepairstatus";
 	}
         
-                @RequestMapping(value = {"/newrepairstatus"}, method = RequestMethod.GET)
+        @RequestMapping(value = {"/newrepairstatus"}, method = RequestMethod.GET)
 	public String newStatus(ModelMap model) {
                 RepairStatus repairStatus = new RepairStatus();
-                model.addAttribute("userProfile", userProfile);
+                model.addAttribute("repairStatus", repairStatus);
                 model.addAttribute("edit", false);
-		return "newprofile";
+		return "newrepairstatus";
 	}
         
         @RequestMapping(value = {"/newrepairstatus"}, method = RequestMethod.POST)
-	public String saveStatus(@Valid UserProfile userProfile,BindingResult result,ModelMap model) {
+	public String saveStatus(@Valid RepairStatus repairStatus,BindingResult result,ModelMap model) {
             if (result.hasErrors()) {
-                return "newprofile";
+                return "newrepairstatus";
             }
-               userProfileService.saveUserProfile(userProfile);
-               model.addAttribute("message", "User Profile " + userProfile.getDesignation() + " registered successfully");
+            repairService.saveRepairStatus(repairStatus);
+               model.addAttribute("message", "Repair Status " + repairStatus.getDesignation() + " registered successfully");
                return "mainadmin";
 	}
         
         @RequestMapping(value = { "/edit-{id}-status" }, method = RequestMethod.GET)
 	public String editStatus(@PathVariable int id, ModelMap model) {
-                UserProfile userProfile = userProfileService.findById(id);
-                model.addAttribute("userProfile",userProfile);
+                RepairStatus repairStatus = repairService.findById(id);
+                model.addAttribute("repairStatus",repairStatus);
 		model.addAttribute("edit", true);
-		return "newprofile";
+		return "newrepairstatus";
 	}
         
         // edit works, but user always have to select a profile, issue to be solved
         @RequestMapping(value = { "/edit-{id}-status" }, method = RequestMethod.POST)
-	public String updateStatus(@Valid UserProfile userProfile,BindingResult result,ModelMap model, @PathVariable int id) {
+	public String updateStatus(@Valid RepairStatus repairStatus,BindingResult result,ModelMap model, @PathVariable int id) {
                 if (result.hasErrors()) {
-			return "newprofile";
+			return "newrepairstatus";
 		}
-                userProfileService.updateUserProfile(userProfile);
-                model.addAttribute("message", "User " + userProfile.getDesignation() + " updated successfully");
+                repairService.updateRepairStatus(repairStatus);
+                model.addAttribute("message", "Repair Status " + repairStatus.getDesignation() + " updated successfully");
 		return "mainadmin";
 	}
         
         @RequestMapping(value = { "/delete-{id}-status" }, method = RequestMethod.GET)
 	public String deleteStatus(@PathVariable int id) {
-                userProfileService.deleteUserProfileById(id);
+            repairService.deleteRepairStatusById(id);
 		return "redirect:/listrepairstatus";
 	}
     
