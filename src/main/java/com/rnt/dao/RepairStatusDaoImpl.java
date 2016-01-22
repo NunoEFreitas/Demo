@@ -9,11 +9,13 @@ import com.rnt.model.RepairStatus;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Nuno
  */
+@Repository("repairStatusDao")
 public class RepairStatusDaoImpl extends AbstractDao<Integer, RepairStatus> implements RepairStatusDao{
 
     public RepairStatus findById(int id) {

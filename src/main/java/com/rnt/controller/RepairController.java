@@ -6,7 +6,6 @@
 package com.rnt.controller;
 
 import com.rnt.model.RepairStatus;
-import com.rnt.model.UserProfile;
 import com.rnt.service.RepairStatusService;
 import java.util.List;
 import javax.validation.Valid;
