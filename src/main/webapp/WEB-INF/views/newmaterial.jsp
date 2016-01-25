@@ -17,7 +17,7 @@
     <body>
         <h2>Registration Form</h2>
  
-	<form:form method="POST" modelAttribute="material">
+	<form:form method="POST" modelAttribute="repair">
 		<form:input type="hidden" path="id" id="id"/>
 		<table>
 			<tr>
@@ -29,13 +29,11 @@
                     <tr>
 				<td><label for="buyPrice">Buy Price: </label> </td>
 				<td><form:input path="buyPrice" id="buyPrice"/></td>
-                                <td><form:errors path="buyPrice" cssClass="error"/></td>
 
 		    </tr>
                     <tr>
 				<td><label for="sellPrice">Sell Price: </label> </td>
 				<td><form:input path="sellPrice" id="sellPrice"/></td>
-                                <td><form:errors path="sellPrice" cssClass="error"/></td>
 
 		    </tr>
 		

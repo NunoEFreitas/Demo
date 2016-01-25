@@ -65,7 +65,7 @@ public class MaterialController {
                 Material material = materialService.findById(id);
 		model.addAttribute("material", material);
 		model.addAttribute("edit", true);
-		return "newclient";
+		return "newmaterial";
 	}
         
         @RequestMapping(value = { "/edit-{id}-material" }, method = RequestMethod.POST)
@@ -94,7 +94,7 @@ public class MaterialController {
 	public String listMaterials(ModelMap model,HttpSession session) {
                 List<Material> material = materialService.findAllMaterials();
 		model.addAttribute("material", material);
-		return "listclients";
+		return "listmaterials";
 	}
     
 }

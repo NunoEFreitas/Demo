@@ -56,11 +56,11 @@ DEFAULT CHARACTER SET = utf8;
 DROP TABLE IF EXISTS `mydb`.`material` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`material` (
-  `mateiral_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `material_id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `designation` VARCHAR(45) NOT NULL,
   `buy_price` FLOAT NULL DEFAULT NULL,
   `sell_price` FLOAT NULL DEFAULT NULL,
-  PRIMARY KEY (`mateiral_id`))
+  PRIMARY KEY (`material_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -164,12 +164,13 @@ DROP TABLE IF EXISTS `mydb`.`materialused` ;
 CREATE TABLE IF NOT EXISTS `mydb`.`materialused` (
   `repair_repair_id` BIGINT(20) NOT NULL,
   `material_mateiral_id` BIGINT(20) NOT NULL,
+  `quantity` INT(3) NOT NULL,
   PRIMARY KEY (`repair_repair_id`, `material_mateiral_id`),
   INDEX `fk_repair_has_material_material1_idx` (`material_mateiral_id` ASC),
   INDEX `fk_repair_has_material_repair1_idx` (`repair_repair_id` ASC),
   CONSTRAINT `fk_repair_has_material_material1`
     FOREIGN KEY (`material_mateiral_id`)
-    REFERENCES `mydb`.`material` (`mateiral_id`)
+    REFERENCES `mydb`.`material` (`material_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_repair_has_material_repair1`

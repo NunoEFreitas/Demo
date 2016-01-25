@@ -5,8 +5,17 @@
  */
 package com.rnt.controller;
 
+import com.rnt.model.Client;
+import com.rnt.model.Repair;
 import com.rnt.model.RepairStatus;
+import com.rnt.model.User;
+import com.rnt.service.ClientService;
+import com.rnt.service.RepairService;
 import com.rnt.service.RepairStatusService;
+import com.rnt.service.UserService;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -27,14 +36,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RepairController {
     
     @Autowired
-    RepairStatusService repairService;
+    RepairStatusService repairStatusService;
     
-        @Autowired
+    @Autowired
+    RepairService repairService;
+    
+    @Autowired
+    ClientService clientService;
+    
+    @Autowired
+    UserService userService;
+        
+    @Autowired
     HttpSession session;
     
         @RequestMapping(value = {"/listrepairstatus"}, method = RequestMethod.GET)
 	public String listRepairStatus(ModelMap model) {
-                List<RepairStatus> profiles = repairService.listRepairStatus();
+                List<RepairStatus> profiles = repairStatusService.listRepairStatus();
 		model.addAttribute("profiles", profiles);
 		return "listrepairstatus";
 	}
@@ -52,14 +70,14 @@ public class RepairController {
             if (result.hasErrors()) {
                 return "newrepairstatus";
             }
-            repairService.saveRepairStatus(repairStatus);
+            repairStatusService.saveRepairStatus(repairStatus);
                model.addAttribute("message", "Repair Status " + repairStatus.getDesignation() + " registered successfully");
                return "mainadmin";
 	}
         
         @RequestMapping(value = { "/edit-{id}-status" }, method = RequestMethod.GET)
 	public String editRepairStatus(@PathVariable int id, ModelMap model) {
-                RepairStatus repairStatus = repairService.findById(id);
+                RepairStatus repairStatus = repairStatusService.findById(id);
                 model.addAttribute("repairStatus",repairStatus);
 		model.addAttribute("edit", true);
 		return "newrepairstatus";
@@ -71,15 +89,29 @@ public class RepairController {
                 if (result.hasErrors()) {
 			return "newrepairstatus";
 		}
-                repairService.updateRepairStatus(repairStatus);
+                repairStatusService.updateRepairStatus(repairStatus);
                 model.addAttribute("message", "Repair Status " + repairStatus.getDesignation() + " updated successfully");
 		return "mainadmin";
 	}
         
         @RequestMapping(value = { "/delete-{id}-status" }, method = RequestMethod.GET)
 	public String deleteRepairStatus(@PathVariable int id) {
-            repairService.deleteRepairStatusById(id);
+            repairStatusService.deleteRepairStatusById(id);
 		return "redirect:/listrepairstatus";
+	}
+        
+        @RequestMapping(value = {"/newrepair"}, method = RequestMethod.GET)
+	public String newRepair(ModelMap model, HttpSession session) {
+                Repair repair = new Repair();
+                RepairStatus repairStatus = new RepairStatus();
+                Client client = new Client();
+                User user = userService.findById((Integer)session.getAttribute("userId"));
+                model.addAttribute("client", client);
+                model.addAttribute("repair", repair);
+                model.addAttribute("user", user);
+                model.addAttribute("repairStatus", repairStatus);
+                model.addAttribute("edit", false);
+		return "newrepair";
 	}
     
 }

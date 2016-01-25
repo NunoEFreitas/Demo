@@ -38,10 +38,10 @@ public class MaterialDaoImpl extends AbstractDao<Integer, Material> implements M
         return (List<Material>) criteria.list();
     }
 
-    public List<Material> listMaterialByDesignation(String designation) {
+    public Material listMaterialByDesignation(String designation) {
         Criteria criteria = getSession().createCriteria(Material.class);
           criteria.add(Restrictions.eq("designation", designation));
-          return (List<Material>) criteria.list();
+          return (Material) criteria.uniqueResult();
     }
     
 }

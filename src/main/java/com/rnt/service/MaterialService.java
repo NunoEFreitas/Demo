@@ -22,7 +22,7 @@ public interface MaterialService {
 
 	List<Material> findAllMaterials(); 
 
-        List<Material> findMaterialByDesignation(String designation);
+        Material findMaterialByDesignation(String designation);
         
         void deleteMaterialById(int id);
     

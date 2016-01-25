@@ -44,7 +44,7 @@ public class MaterialServiceImpl implements MaterialService{
         return dao.listAllMaterials();
     }
 
-    public List<Material> findMaterialByDesignation(String designation) {
+    public Material findMaterialByDesignation(String designation) {
         return dao.listMaterialByDesignation(designation);
     }
 

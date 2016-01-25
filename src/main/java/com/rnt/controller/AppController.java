@@ -63,6 +63,7 @@ public class AppController {
             if(userService.findUserByEmail(email)!=null){
                 User user = userService.findUserByEmail(email);
                 session.setAttribute("role", user.getUserProfile().getDesignation());
+                session.setAttribute("userId", user.getId());
                 if(email.equals(user.getEmail()) & password.equals(user.getPassword())){
                     if(user.getUserProfile().getDesignation().equals("admin")){
                         model.addAttribute("role", "admin");

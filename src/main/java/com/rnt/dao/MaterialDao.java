@@ -22,6 +22,6 @@ public interface MaterialDao {
     
     List<Material> listAllMaterials();
     
-    List<Material> listMaterialByDesignation(String designation);
+    Material listMaterialByDesignation(String designation);
     
 }
