@@ -8,6 +8,7 @@ package com.rnt.controller;
 import com.rnt.model.RepairStatus;
 import com.rnt.service.RepairStatusService;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,15 +29,18 @@ public class RepairController {
     @Autowired
     RepairStatusService repairService;
     
+        @Autowired
+    HttpSession session;
+    
         @RequestMapping(value = {"/listrepairstatus"}, method = RequestMethod.GET)
-	public String listStatus(ModelMap model) {
+	public String listRepairStatus(ModelMap model) {
                 List<RepairStatus> profiles = repairService.listRepairStatus();
 		model.addAttribute("profiles", profiles);
 		return "listrepairstatus";
 	}
         
         @RequestMapping(value = {"/newrepairstatus"}, method = RequestMethod.GET)
-	public String newStatus(ModelMap model) {
+	public String newRepairStatus(ModelMap model) {
                 RepairStatus repairStatus = new RepairStatus();
                 model.addAttribute("repairStatus", repairStatus);
                 model.addAttribute("edit", false);
@@ -44,7 +48,7 @@ public class RepairController {
 	}
         
         @RequestMapping(value = {"/newrepairstatus"}, method = RequestMethod.POST)
-	public String saveStatus(@Valid RepairStatus repairStatus,BindingResult result,ModelMap model) {
+	public String saveRepairStatus(@Valid RepairStatus repairStatus,BindingResult result,ModelMap model) {
             if (result.hasErrors()) {
                 return "newrepairstatus";
             }
@@ -54,7 +58,7 @@ public class RepairController {
 	}
         
         @RequestMapping(value = { "/edit-{id}-status" }, method = RequestMethod.GET)
-	public String editStatus(@PathVariable int id, ModelMap model) {
+	public String editRepairStatus(@PathVariable int id, ModelMap model) {
                 RepairStatus repairStatus = repairService.findById(id);
                 model.addAttribute("repairStatus",repairStatus);
 		model.addAttribute("edit", true);
@@ -63,7 +67,7 @@ public class RepairController {
         
         // edit works, but user always have to select a profile, issue to be solved
         @RequestMapping(value = { "/edit-{id}-status" }, method = RequestMethod.POST)
-	public String updateStatus(@Valid RepairStatus repairStatus,BindingResult result,ModelMap model, @PathVariable int id) {
+	public String updateRepairStatus(@Valid RepairStatus repairStatus,BindingResult result,ModelMap model, @PathVariable int id) {
                 if (result.hasErrors()) {
 			return "newrepairstatus";
 		}
@@ -73,7 +77,7 @@ public class RepairController {
 	}
         
         @RequestMapping(value = { "/delete-{id}-status" }, method = RequestMethod.GET)
-	public String deleteStatus(@PathVariable int id) {
+	public String deleteRepairStatus(@PathVariable int id) {
             repairService.deleteRepairStatusById(id);
 		return "redirect:/listrepairstatus";
 	}
