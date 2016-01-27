@@ -32,6 +32,7 @@ public class Repair {
     private int hoursSpend;
     private float price;
     private String serialNumber;
+    private String condition;
     private User user;
     private Client client;
     private RepairStatus status;
@@ -78,7 +79,7 @@ public class Repair {
     }
     
     @Size(min=0,max=3)
-    @Column(name = "DESIGNATION", nullable = false)
+    @Column(name = "HOURS_SPEND", nullable = false)
     public int getHoursSpend() {
         return hoursSpend;
     }
@@ -134,6 +135,16 @@ public class Repair {
 
     public void setStatus(RepairStatus status) {
         this.status = status;
+    }
+
+    @Size(min=0,max=500)
+    @Column(name = "CONDITION", nullable = false)
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
     
     

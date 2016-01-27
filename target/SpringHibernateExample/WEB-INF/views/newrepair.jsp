@@ -20,12 +20,6 @@
 	<form:form method="POST" modelAttribute="user">
 		<form:input type="hidden" path="id" id="id"/>
 		<table>
-			<tr>
-				<td><label for="startDate">Start Date: </label> </td>
-				<td><form:input path="startDate" id="startDate"/></td>
-                                <td><form:errors path="startDate" cssClass="startDate"/></td>
-
-		    </tr>
                     <tr>
 				<td><label for="observation">Observations: </label> </td>
 				<td><form:input path="observation" id="observation"/></td>

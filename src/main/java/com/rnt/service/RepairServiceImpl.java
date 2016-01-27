@@ -63,6 +63,7 @@ public class RepairServiceImpl implements RepairService{
             entity.setStatus(repair.getStatus());
             entity.setStartDate(repair.getStartDate());
             entity.setUser(repair.getUser());
+            entity.setCondition(repair.getCondition());
 	}
     }
     
