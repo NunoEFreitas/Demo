@@ -3,11 +3,11 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.websystique.springmvc</groupId>
-	<artifactId>RM</artifactId>
+	<groupId>com.demo.springmvc</groupId>
+	<artifactId>Demo</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>RM</name>
+	<name>Demo</name>
 
 	<properties>
 		<springframework.version>4.0.6.RELEASE</springframework.version>

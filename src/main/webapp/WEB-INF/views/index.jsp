@@ -11,27 +11,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <title>Repair Management</title>
+        <title>Demo</title>
     </head>
     <body>
-        ${message}
-        <h1>welcome</h1>
-        
-        <label>Login form</label>
-        <form:form method="POST" name="loginForm">
-            <table>
-			<tr>
-				<td><label for="email">Email </label> </td>
-                                <td><input name="email" type="email" /></td>
-		    </tr>
-                    <tr>
-				<td><label for="password">Password </label> </td>
-                                <td><input name="password" type="password"/></td>
-		    </tr>
-                    <tr>
-                        <td><input type="submit" value="Login"/></td>
-        </tr>
-            </table>
-        </form:form>
+        <p>Demo</p>
     </body>
 </html>
